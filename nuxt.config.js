@@ -21,8 +21,8 @@ export default {
     '@/assets/css/main.css',
   ],
 
-  env: {
-    BASE_URL: process.env.VUE_APP_BASE_URL || 'localhost'
+  publicRuntimeConfig: {
+    apiUrl: process.env.API_SHEMA + '://' + process.env.API_HOST + (process.env.API_PORT !== undefined ? ':' + process.env.API_PORT : ''),
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
