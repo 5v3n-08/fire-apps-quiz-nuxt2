@@ -9,28 +9,33 @@
         </v-card-subtitle>
         <v-card-text>
           <div class="px-4">
-            <v-text-field
-              outlined
-              clearable
-              label="E-Mail:"
-              :hide-details="isTouched ? 'auto' : false"
-              type="mail"
-              :rules="[validateRequired, validateEmail]"
-              v-model="email"
-            ></v-text-field>
-            <v-text-field
-              outlined
-              label="Passwort:"
-              :hide-details="isTouched ? 'auto' : false"
-              class="mt-2"
-              :rules="[validatePassword]"
-              v-model="password"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-            ></v-text-field>
+            <v-form ref="form">
+              <v-text-field
+                outlined
+                clearable
+                autofocus
+                label="E-Mail:"
+                :hide-details="isTouched ? 'auto' : true"
+                type="mail"
+                :rules="[validateRequired, validateEmail]"
+                v-model="email"
+              ></v-text-field>
+              <v-text-field
+                outlined
+                label="Passwort:"
+                :hide-details="isTouched ? 'auto' : true"
+                class="mt-2"
+                :rules="[validatePassword]"
+                v-model="password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword"
+              ></v-text-field>
+            </v-form>
             <div class="mt-5">
-              <v-btn color="primary" block>Anmelden</v-btn>
+              <v-btn color="primary" block @click="onSignInClick"
+                >Anmelden</v-btn
+              >
             </div>
           </div>
         </v-card-text>
@@ -57,7 +62,10 @@ export default defineComponent({
     }
   },
   methods: {
-    onSignInClick() {},
+    onSignInClick() {
+      this.isTouched = true
+      // this.$refs.form.validate()
+    },
     validatePassword(value: string) {
       return validateRequired(value, {
         message: 'Bitte geben Sie ein Passwort ein!',
