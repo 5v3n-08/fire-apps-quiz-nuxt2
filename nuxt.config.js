@@ -21,6 +21,10 @@ export default {
     '@/assets/css/main.css',
   ],
 
+  server: {
+    port: 8000 // default: 3000
+  },
+
   publicRuntimeConfig: {
     apiUrl: process.env.API_SHEMA + '://' + process.env.API_HOST + (process.env.API_PORT !== undefined ? ':' + process.env.API_PORT : ''),
   },
@@ -56,7 +60,16 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.API_SHEMA + '://' + process.env.API_HOST + (process.env.API_PORT !== undefined ? ':' + process.env.API_PORT : ''),
+    headers: {
+      common: {
+        // 'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    },
+    // credentials: true,
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

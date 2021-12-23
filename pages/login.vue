@@ -19,6 +19,7 @@
                 type="mail"
                 :rules="[validateRequired, validateEmail]"
                 v-model="email"
+                :loading="isLoading"
               ></v-text-field>
               <v-text-field
                 outlined
@@ -30,6 +31,7 @@
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showPassword ? 'text' : 'password'"
                 @click:append="showPassword = !showPassword"
+                :loading="isLoading"
               ></v-text-field>
             </v-form>
             <div class="mt-5">
@@ -65,6 +67,7 @@ export default defineComponent({
     onSignInClick() {
       this.isTouched = true
       // this.$refs.form.validate()
+      this.$store.dispatch('authentication/requestSignIn')
     },
     validatePassword(value: string) {
       return validateRequired(value, {
